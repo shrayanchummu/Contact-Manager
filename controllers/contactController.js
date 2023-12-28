@@ -18,14 +18,15 @@ const getContact=(req,res)=>{
 // @route POST /api/contacts/
 // @access PUBLIC
 
-const createContact=(req,res)=>{
+const createContact=(req,res,next)=>{
     console.log('The Request Body is:',req.body);
     const {name,email,phone}=req.body;
     if(!name || !email || !phone){
         res.status(400);
-        throw new Error("All fields are mandatory");
+        const error=new Error("All fields are mandatory");
+        return next(error);
     }
-    res.status(200).send({message:`Create contact`});
+    res.status(201).send({message:`Create contact`});
 };
 
 // @desc Update contact of given id
