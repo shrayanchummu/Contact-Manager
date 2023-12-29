@@ -53,7 +53,7 @@ const createContact=asyncHandler(async(req,res,next)=>{
 const updateContact=asyncHandler(async(req,res)=>{
     const oldContact=await Contact.findById(req.params.id);
     if(!oldContact){
-        res.send(404);
+        res.status(404);
         throw new Error("Contact with the given ID is not found");
     }
     const updatedContact = await Contact.findByIdAndUpdate(
@@ -69,7 +69,13 @@ const updateContact=asyncHandler(async(req,res)=>{
 // @access PUBLIC
 
 const deleteContact=asyncHandler(async(req,res)=>{
-    res.status(200).send({message:`Deletes contact of given ${req.params.id} `});
+    const oldContact=await Contact.findById(req.params.id);
+    if(!oldContact){
+        res.status(404);
+        throw new Error("Contact with the given ID is not found");
+    }
+    await Contact.findByIdAndDelete(req.params.id);
+    res.status(200).send(oldContact);
 });
 
 module.exports={
