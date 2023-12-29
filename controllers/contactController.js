@@ -51,7 +51,17 @@ const createContact=asyncHandler(async(req,res,next)=>{
 // @access PUBLIC
 
 const updateContact=asyncHandler(async(req,res)=>{
-    res.status(200).send({message:`Update contact of given ${req.params.id} `});
+    const oldContact=await Contact.findById(req.params.id);
+    if(!oldContact){
+        res.send(404);
+        throw new Error("Contact with the given ID is not found");
+    }
+    const updatedContact = await Contact.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new:true}
+    )
+    res.status(200).send(updatedContact);
 });
 
 // @desc Deletes contact og given id
