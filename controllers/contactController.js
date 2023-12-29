@@ -1,12 +1,14 @@
 const asyncHandler=require('express-async-handler');
 // used instead of try catch statements in async blocks
+const Contact=require('../models/contactModel');
 
 // @desc Gets all contacts
 // @route GET /api/contacts
 // @access PUBLIC
 
 const getContacts=asyncHandler(async(req,res)=>{
-    res.status(200).send({message:'Gets all contacts'});
+    const contacts=await Contact.find();
+    res.status(200).send(contacts);
 });
 
 // @desc Gets contact of given id
