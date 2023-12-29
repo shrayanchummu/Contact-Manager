@@ -16,7 +16,13 @@ const getContacts=asyncHandler(async(req,res)=>{
 // @access PUBLIC
 
 const getContact=asyncHandler(async(req,res)=>{
-    res.status(200).send({message:`Get contact of given ${req.params.id} `});
+    const oldContact=await Contact.findById(req.params.id);
+    if(!oldContact){
+        res.status(404);
+        throw new Error("Contact not found");
+    }
+
+    res.status(200).send(oldContact);
 });
 
 // @desc Create contact 
