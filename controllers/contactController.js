@@ -31,7 +31,13 @@ const createContact=asyncHandler(async(req,res,next)=>{
         const error=new Error("All fields are mandatory");
         return next(error);
     }
-    res.status(201).send({message:`Create contact`});
+    const newContact=await Contact.create({
+        name,
+        email,
+        phone
+    });
+
+    res.status(201).send(newContact);
 });
 
 // @desc Update contact of given id
