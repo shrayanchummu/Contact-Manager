@@ -69,7 +69,7 @@ const loginUser=asyncHandler(async(req,res)=>{
 // @route GET /api/user/register
 // @access PRIVATE
 const currentUser=asyncHandler(async(req,res)=>{
-    res.status(200).send({message:"Register the User"});
+    res.status(200).send(req.user);
 });
 
 module.exports={
