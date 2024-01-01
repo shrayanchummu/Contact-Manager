@@ -19,8 +19,29 @@ Welcome to the Contact Manager Backend repository! This project is designed to p
 - **Error Handling and Maintenance:**
   - Implemented robust error handling using `express-async-handler`.
   - Achieved a 20% reduction in downtime through proactive monitoring.
- 
-** >> nodemon server.js
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm installed
+- MongoDB database instance
+
+### Installation
+
+1. Clone the repository: `git clone https://github.com/shrayanchummu/Contact-Manager.git`
+2. Install dependencies: `npm install`
+3. Configure environment variables: Create a `.env` file.
+4. Run the application: `node server.js`
+
+
+Special thanks to the open-source community and contributors for making this project possible.
+
+Happy coding!
+
+
+
+**DETAILS:**
 
 (POST) REGISTER A USER (username, email, password)
 
@@ -28,4 +49,4 @@ Welcome to the Contact Manager Backend repository! This project is designed to p
 
 (GET) CURRENT USER INFORMATION by pasting (ACCESS_TOKEN) in Header-Auth-Bearer section
 
-and start creating Contacts(name, email, phone)**
+and Start creating Contacts (name, email, phone)
