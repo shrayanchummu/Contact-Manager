@@ -1,3 +1,4 @@
+const jwt=require('jsonwebtoken');
 const asyncHandler=require('express-async-handler');
 const bcrypt=require('bcrypt');
 const User=require('../models/userModel')
@@ -39,7 +40,29 @@ const registerUser=asyncHandler(async(req,res)=>{
 // @route POST /api/user/login
 // @access PUBLIC
 const loginUser=asyncHandler(async(req,res)=>{
-    res.status(200).send({message:"Register the User"});
+    const {email,password}=req.body;
+    if(!email||!password){
+        res.status(400);
+        throw new Error("All fields are mandatory");
+    }
+    const userAvailable = await User.findOne({email})
+    if(userAvailable && (await bcrypt.compare(password,userAvailable.password))){
+        const accessToken=jwt.sign({
+            user:{
+                username:userAvailable.username,
+                email:userAvailable.email,
+                _id:userAvailable._id
+            }
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {expiresIn:"1m"}
+        );
+        res.status(200).send({accessToken});
+    }
+    else{
+        res.status(401);
+        throw new Error("Email/Password is invalid");
+    }
 });
 
 // @desc Gets Current User
