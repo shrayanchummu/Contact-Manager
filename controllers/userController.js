@@ -1,10 +1,11 @@
 const asyncHandler=require('express-async-handler');
+const bcrypt=require('bcrypt');
 const User=require('../models/userModel')
 
 // @desc Registers Users
 // @route POST /api/user/register
 // @access PUBLIC
-const registerUser=asyncHandler(async(req,res,next)=>{
+const registerUser=asyncHandler(async(req,res)=>{
     const {username,email,password}=req.body;
     if(!username||!email||!password){
         res.status(400);
@@ -15,12 +16,23 @@ const registerUser=asyncHandler(async(req,res,next)=>{
         res.status(400);
         throw new Error("User already Registered");
     }
+    const hashedPassword= await bcrypt.hash(password,10);
+    // console.log("password:",password);
+    // console.log("hashedPassword:",hashedPassword);
+
     const newUser= await User.create({
         username,
         email,
-        password
+        password:hashedPassword
     });
-    res.status(201).send(newUser);
+    console.log("New user created SUCCESSFULLY ");
+    if(newUser){
+        res.status(201).send({_id:newUser._id,email:newUser.email});
+    }
+    else{
+        res.status(400);
+        throw new Error("User data is INVALID")
+    }
 });
 
 // @desc Login User Info

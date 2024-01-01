@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const userSchema=mongoose.Schema({
     username:{
         type:String,
-        required:[true,"Please enter UserName"],
-        unique:[true,"UserName already exist"]
+        required:[true,"Please enter UserName"]
     },
     email:{
         type:String,
