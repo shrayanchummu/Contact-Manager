@@ -1,5 +1,5 @@
 const express=require('express');
-const {getContacts,getContact,createContact,updateContact,deleteContact}=require('../controllers/contactController');
+const {getContacts,getContact,createContact,updateContact,deleteContact,shareContact}=require('../controllers/contactController');
 const validateToken = require('../middleware/validTokenHandler');
 const router=express.Router();
 
@@ -14,5 +14,7 @@ router.route('/').post(createContact);
 router.route('/:id').put(updateContact);
 
 router.route('/:id').delete(deleteContact);
+
+router.route('/:id/share').post(shareContact);
 
 module.exports=router;

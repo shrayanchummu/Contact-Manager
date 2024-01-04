@@ -17,7 +17,11 @@ const contactSchema=mongoose.Schema({
     phone:{
         type:String,
         required:[true,"Please enter Contact Phone Number"]
-    }
+    },
+    sharedWith:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }],
 },{
     timestamps:true
 });
