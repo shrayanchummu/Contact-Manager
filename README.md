@@ -1,6 +1,6 @@
 # Contact Manager Backend
 
-Welcome to the Contact Manager Backend repository! This project provides a robust backend solution for managing contacts through a RESTful API.
+Welcome to the Contact Manager Backend repository! 
 
 ## Table of Contents
 
@@ -38,6 +38,13 @@ Welcome to the Contact Manager Backend repository! This project provides a robus
   - Implemented robust error handling using `express-async-handler`.
   - Achieved a 20% reduction in downtime through proactive monitoring.
 
+- **Sharing Contacts with Other Users:**
+  - Share a contact with another user through the API.
+  - Endpoint: `POST /api/contacts/share/:id`
+  - Access: Private
+  - Request Body: `{ "targetUserId": "user_id_to_share_with" }`
+  - Shares the contact with the specified user, allowing them access to the contact details.
+
 ## Getting Started
 
 ### Prerequisites
@@ -51,7 +58,7 @@ Ensure you have the following prerequisites before getting started:
 
 1. Clone the repository: `git clone https://github.com/shrayanchummu/Contact-Manager.git`
 2. Install dependencies: `npm install`
-3. Configure environment variables: Create a `.env` file based on the provided `.env.example`.
+3. Configure environment variables: Create a `.env` file with [PORT, CONNECTION_STRING, ACCESS_TOKEN_SECRET]
 4. Run the application: `node server.js`
 
 ## Usage
@@ -102,6 +109,12 @@ Ensure you have the following prerequisites before getting started:
   - Authorization: Bearer Token
   - Response: Deleted contact details
 
+- **Share Contact with Other User:**
+  - `POST /api/contacts/share/:id`
+  - Authorization: Bearer Token
+  - Request Body: `{ "targetUserId": "user_id_to_share_with" }`
+  - Response: `{ "message": "Contact Shared successfully" }`
+
 ## Development Process
 
 ### Technologies Used
@@ -137,11 +150,8 @@ The API follows RESTful principles with well-defined endpoints for user and cont
 - **Contact Model:**
   - `{ "_id": ObjectId, "user_id": ObjectId, "name": String, "email": String, "phone": String }`
 
-
 ## Acknowledgments
 
 Special thanks to the open-source community and contributors for making this project possible.
 
 Happy coding!
-
-
